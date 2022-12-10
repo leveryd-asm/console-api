@@ -1,0 +1,8 @@
+Name: console-api
+Host: 0.0.0.0
+Port: 80
+Mysql:
+  DataSource: ${MYSQL_DATASOURCE}
+  Debug: true   # set to true to enable "print sql"
+Cors:
+  AllowOrigin: "*"  # split by comma

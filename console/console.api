@@ -1,0 +1,78 @@
+type Response {
+	Message string `json:"message"`
+}
+
+// below field name shoud be same as the field name in base.go or frontend
+// condition
+
+type (
+	DynamicQueryRequest {
+		Offset     int    `form:"offset,optional"`
+		Limit      int    `form:"limit,optional"`
+		OrderBy    string `form:"orderby,optional"`
+		Asc        int    `form:"asc,optional"`
+		FuzzyQuery bool   `form:"fuzzyQuery,default=true"`
+
+		TableName string `path:"table"`
+		// dynamic table fields
+	}
+
+	DynamicQueryResponse {
+		Total int                      `json:"total"`
+		Rows  []map[string]interface{} `json:"rows"`
+	}
+
+	DynamicInsertOneRequest {
+		TableName string `path:"table"`
+		// dynamic table fields
+	}
+
+	DynamicInsertOneResponse {
+		Message string `json:"message"`
+	}
+
+	DynamicUpdateRequest {
+		TableName string `path:"table"`
+		// dynamic table fields
+	}
+
+	DynamicUpdateResponse {
+		Message string `json:"message"`
+	}
+
+	DynamicDeleteByQueryRequest {
+		FuzzyQuery bool   `form:"fuzzyQuery,optional"`
+		TableName  string `path:"table"`
+		// dynamic table fields
+		QueryCondition map[string]interface{} `json:"condition"`
+	}
+
+	DynamicDeleteByQueryIdsRequest {
+		TableName string `path:"table"`
+		Ids       []int  `json:"ids"`
+		// dynamic table fields
+	}
+
+	DynamicDeleteResponse {
+		Message      string `json:"message"`
+		AffectedRows int    `json:"affectedRows"`
+	}
+)
+
+service console-api {
+	
+	@handler dynamicQuery
+	get /api/:module/:table/query (DynamicQueryRequest) returns (DynamicQueryResponse)
+	
+	@handler dynamicInsertOne
+	post /api/:module/:table/add (DynamicInsertOneRequest) returns (DynamicInsertOneResponse)
+	
+	@handler dynamicUpdate
+	post /api/:module/:table/update (DynamicUpdateRequest) returns (DynamicUpdateResponse)
+	
+	@handler dynamicDeleteByQuery
+	post /api/:module/:table/deleteByQuery (DynamicDeleteByQueryRequest) returns (DynamicDeleteResponse)
+	
+	@handler dynamicDeleteByIds
+	post /api/:module/:table/deleteByIds (DynamicDeleteByQueryIdsRequest) returns (DynamicDeleteResponse)
+}
