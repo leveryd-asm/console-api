@@ -29,6 +29,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
+				Path:    "/api/:module/:table/multiupdate",
+				Handler: dynamicMultiUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
 				Path:    "/api/:module/:table/deleteByQuery",
 				Handler: dynamicDeleteByQueryHandler(serverCtx),
 			},

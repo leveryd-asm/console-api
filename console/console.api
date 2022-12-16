@@ -36,6 +36,11 @@ type (
 		// dynamic table fields
 	}
 
+	DynamicMultiUpdateRequest {
+		TableName string `path:"table"`
+		// dynamic table fields
+	}
+
 	DynamicUpdateResponse {
 		Message string `json:"message"`
 	}
@@ -69,6 +74,9 @@ service console-api {
 	
 	@handler dynamicUpdate
 	post /api/:module/:table/update (DynamicUpdateRequest) returns (DynamicUpdateResponse)
+	
+	@handler dynamicMultiUpdate
+	post /api/:module/:table/multiupdate (DynamicMultiUpdateRequest) returns (DynamicUpdateResponse)
 	
 	@handler dynamicDeleteByQuery
 	post /api/:module/:table/deleteByQuery (DynamicDeleteByQueryRequest) returns (DynamicDeleteResponse)

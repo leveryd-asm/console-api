@@ -31,6 +31,10 @@ type DynamicUpdateRequest struct {
 	TableName string `path:"table"`
 }
 
+type DynamicMultiUpdateRequest struct {
+	TableName string `path:"table"`
+}
+
 type DynamicUpdateResponse struct {
 	Message string `json:"message"`
 }

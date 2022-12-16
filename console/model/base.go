@@ -236,6 +236,14 @@ func (m *DynamicModel) Update(tableName string, data map[string]interface{}) err
 	return nil
 }
 
+// MultiUpdate support update multiple record
+func (m *DynamicModel) MultiUpdate(tableName string, data map[string]interface{}) error {
+	keys := data[primaryKey]
+	delete(data, primaryKey)
+	m.db.Table(tableName).Where(fmt.Sprintf("%s in (?)", primaryKey), keys).Updates(&data) // update all fields
+	return nil
+}
+
 // DeleteByQuery return delete count
 // delete rows which match the query condition. if query is nil, delete all rows
 // query is a map, key is column name, value is column value. if value is nil, do nothing
