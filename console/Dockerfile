@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM busybox
 
 COPY console/console /bin/console
 
